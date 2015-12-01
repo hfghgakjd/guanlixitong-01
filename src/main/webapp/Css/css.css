@@ -1,0 +1,7 @@
+
+/* jQuery.FormValidator插件样式片段 */
+.Show {width:250px;padding-left:25px;line-height:22px;vertical-align:middle;font-size:12px;display:inline-block;background-image:url('../Images/jquery.FormValidator.Icons.gif');background-repeat:no-repeat; background-position:0px 0px;}
+.Focus{width:250px;padding-left:25px;line-height:22px;vertical-align:middle;font-size:12px;display:inline-block;background-image:url('../Images/jquery.FormValidator.Icons.gif');background-repeat:no-repeat; background-position:0px -22px;background-color:#E9FFEB;}
+.Error{width:250px;padding-left:25px;line-height:22px;vertical-align:middle;font-size:12px;display:inline-block;background-image:url('../Images/jquery.FormValidator.Icons.gif');background-repeat:no-repeat; background-position:0px -44px;background-color:#FFF2E9;}
+.Success{width:250px;padding-left:25px;line-height:22px;vertical-align:middle;font-size:12px;display:inline-block;background-image:url('../Images/jquery.FormValidator.Icons.gif');background-repeat:no-repeat; background-position:0px -66px;background-color:#E9F0FF;}
+/* jQuery.FormValidator插件样式片段 */

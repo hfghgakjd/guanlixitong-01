@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       <!-- 使用注解-->
+       <context:annotation-config />
+       <context:component-scan base-package="com.crmsystem"/>
+
+       <!-- 配置数据源 -->
+       <bean id="dataSourceOne" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+              <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+              <property name="url" value="jdbc:mysql://localhost:3306/my_zhfw_pt" />
+              <property name="username" value="root" />
+              <property name="password" value="zxazsx" />
+       </bean>
+       <!--配置mybatis sqlSefssionFactory-->
+       <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+              <property name="dataSource" ref="dataSourceOne" />
+       </bean>
+       <!-- dao接口所在的包名,spring会自动扫描下面的类-->
+       <bean id="mapper" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+              <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+              <property name="basePackage" value="com.crmsystem.dao" />
+       </bean>
+
+       <!-- 配置事物管理器-->
+       <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+              <property name="dataSource" ref="dataSourceOne" />
+       </bean>
+       <!--aop增强事物-->
+       <aop:config proxy-target-class="true">
+              <aop:pointcut id="serviceMethod" expression="execution(* com.crmsystem.service..*(..))" />
+              <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceMethod" />
+       </aop:config>
+       <tx:advice id="txAdvice" transaction-manager="transactionManager">
+              <tx:attributes>
+                     <tx:method name="*"/>
+              </tx:attributes>
+       </tx:advice>
+</beans>
